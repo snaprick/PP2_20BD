@@ -1,3 +1,2 @@
-n = int(input())
-m = int(input())
-print((m+n-1)//n)
+import math
+print((math.factorial(50)*math.factorial(50))/(24*math.factorial(100)))
