@@ -1,5 +1,15 @@
 b = list(map(int, input().split()))
-for i in range(len(b) - 2):
-    if b[i] == b[i + 1] and b[i] == b[i + 2]:
-        b[i:i + 3] = [-1, -1, -1]
-print(len([i for i in b if i != -1]))
+b+=[-2]
+del b[0]
+cnt = 1
+for i in range(len(b) - 1):
+    if b[i] == b[i + 1]:
+        cnt+=1
+    else:
+        if cnt>=3:
+            b[i+1-cnt:i+1]=[-1]*cnt
+        cnt = 1
+#print(*b)
+print(len([i for i in b if i == -1]))
+#0 1 2 3 4 5
+#1 1 1 4 5 6
