@@ -1,15 +1,21 @@
 b = list(map(int, input().split()))
-b+=[-2]
-del b[0]
+ans,count,i=0,0,0
 cnt = 1
-for i in range(len(b) - 1):
-    if b[i] == b[i + 1]:
-        cnt+=1
+while i < len(b):
+    if i + 1 < len(b) and b[i] == b[i+1]:
+        cnt += 1
+        i += 1
+        continue
+    if cnt >= 3:
+        ans += cnt
+        del b[i-cnt+1:i+1]
+        cnt=0
+        i = 0
     else:
-        if cnt>=3:
-            b[i+1-cnt:i+1]=[-1]*cnt
         cnt = 1
+        i += 1
 #print(*b)
-print(len([i for i in b if i == -1]))
+print(ans)
+#print(len([i for i in b if i == -1]))
 #0 1 2 3 4 5
 #1 1 1 4 5 6
