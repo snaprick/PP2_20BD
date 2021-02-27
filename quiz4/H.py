@@ -1,9 +1,7 @@
 n = int(input())
 a = list(map(str,input().split()))
-st = dict()
 m = int(input())
 a1 = list(map(str,input().split()))
-st1 = dict()
 ans,ans1 = list(),list()
 for i in a:
     if i not in a1:
