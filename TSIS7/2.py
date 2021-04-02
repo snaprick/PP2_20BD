@@ -50,13 +50,13 @@ while True:
     screen.fill(WHITE)
     screen.blit(drawSin, SinRect)
     screen.blit(drawCos, CosRect)
-    pygame.draw.rect(screen, BLACK, (70, 10, 660, 540), 2)  # Borders
-    pygame.draw.line(screen, BLACK, (70, 280), (730, 280), 3)  # X-Axis
-    pygame.draw.line(screen, BLACK, (400, 10), (400, 550), 3)  # Y-Axis
-    pygame.draw.line(screen, BLACK, (70, 40), (730, 40))  # H_line 1
-    pygame.draw.line(screen, BLACK, (70, 520), (730, 520))  # H_line 2
-    pygame.draw.line(screen, BLACK, (100, 10), (100, 550))  # V_line 1
-    pygame.draw.line(screen, BLACK, (700, 10), (700, 550))  # V_line 2
+    pygame.draw.rect(screen, BLACK, (70, 10, 660, 540), 2)  
+    pygame.draw.line(screen, BLACK, (70, 280), (730, 280), 3)  
+    pygame.draw.line(screen, BLACK, (400, 10), (400, 550), 3)  
+    pygame.draw.line(screen, BLACK, (70, 40), (730, 40))  
+    pygame.draw.line(screen, BLACK, (70, 520), (730, 520))  
+    pygame.draw.line(screen, BLACK, (100, 10), (100, 550))
+    pygame.draw.line(screen, BLACK, (700, 10), (700, 550))
     if showSine:
         pygame.draw.line(screen, RED, (530, 60), (570, 60))
     if showCosine:
