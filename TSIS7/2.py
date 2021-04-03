@@ -3,12 +3,15 @@ import math
 from pygame.locals import *
 
 pygame.init()
-size = width, height = (900, 600)
+size = width, height = (800, 650)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("TSIS-7")
 font = pygame.font.SysFont('times-new-roman', 20)
 icon = pygame.image.load('server-icon.png')
 pygame.display.set_icon(icon)
+
+# pygame.mixer.music.load('music.mp3')
+# pygame.mixer.music.play()
 
 showSine = True
 showCosine = True
@@ -25,21 +28,14 @@ BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
 PI = math.pi
 
-drawWaves = font.render('Toggle waves', True, BLACK, WHITE)
+drawWaves = font.render('Toggle waves Q - sin, W - cos', True, BLACK, WHITE)
 drawnRect = drawWaves.get_rect()
-drawnRect.left = 735
-drawnRect.bottom = 30
-drawSin = font.render('Q - sin', True, BLACK, WHITE)
-SinRect = drawSin.get_rect()
-SinRect.left = 735
-SinRect.bottom = 55
-drawCos = font.render('W - cos', True, BLACK, WHITE)
-CosRect = drawSin.get_rect()
-CosRect.left = 735
-CosRect.bottom = 75
+drawnRect.left = 10
+drawnRect.bottom = 630
 
 pos = {'sin': [], 'cos': []}
 prevpos = {'sin': [], 'cos': []}
+nums = ['- 3', '- 2', '- 1', ' 0 ', '1','2']
 dx1 = ['-3π', ' 5π', '-2π', ' 3π', '-π ', ' π ', ' 0 ', ' π ', ' π ', ' 3π', ' 2π', ' 5π', ' 3π']
 dx2 = ['', '_ __', '', '_ __', '', '_ _', '', '   _', '', '   __', '', '   __', '']
 dx3 = ['', '  2', '', '  2', '', ' 2', '', ' 2', '', '  2', '', '  2', '']
@@ -63,19 +59,23 @@ def draw_lines(screen):
     for y in range(40, 521, 60):
         pygame.draw.line(screen, BLACK, (70, y), (730, y))
 
+
 def hatches(screen):
     for x in range(100, 701, 50):
         pygame.draw.line(screen, BLACK, (x, 10), (x, 30))
         pygame.draw.line(screen, BLACK, (x, 530), (x, 550))
-    for x in range(100, 701, 25):
-        pygame.draw.line(screen, BLACK, (x, 10), (x, 20))
-        pygame.draw.line(screen, BLACK, (x, 540), (x, 550))
+    for x in range(125, 701, 50):
+        pygame.draw.line(screen, BLACK, (x, 10), (x, 20), 2)
+        pygame.draw.line(screen, BLACK, (x, 540), (x, 550), 2)
     for y in range(40, 521, 30):
         pygame.draw.line(screen, BLACK, (70, y), (90, y))
         pygame.draw.line(screen, BLACK, (710, y), (730, y))
     for y in range(40, 521, 15):
         pygame.draw.line(screen, BLACK, (70, y), (80, y))
         pygame.draw.line(screen, BLACK, (720, y), (730, y))
+    for x in range(112, 701, 25):
+        pygame.draw.line(screen, BLACK, (x, 10), (x, 15))
+        pygame.draw.line(screen, BLACK, (x, 545), (x, 550))
 
 
 def drawNums():
@@ -85,6 +85,8 @@ def drawNums():
         screen.blit(font.render(x3, False, BLACK), (x, 570))
     for y, y1 in zip(range(28, 509, 60), num):
         screen.blit(font.render(y1, False, BLACK), (25, y))
+    for i, x in zip(nums, range(110, 710, 100)):
+        screen.blit(font.render(i, False, BLACK), (x, 290))
 
 
 # precalc
@@ -110,8 +112,8 @@ while True:
                 showCosine = not showCosine
     screen.fill(WHITE)
     screen.blit(drawWaves, drawnRect)
-    screen.blit(drawSin, SinRect)
-    screen.blit(drawCos, CosRect)
+    # screen.blit(drawSin, SinRect)
+    # screen.blit(drawCos, CosRect)
     draw_lines(screen)
     hatches(screen)
     drawNums()
