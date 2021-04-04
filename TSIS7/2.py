@@ -123,13 +123,13 @@ while True:
         pygame.draw.line(screen, RED, (530, 60), (570, 60))
         screen.blit(font.render('sin(x)', False, BLACK), (475, 45))
         if showCosine and DoneCos:
-            for x in range(530, 570, 7):
-                pygame.draw.line(screen, BLUE, (x, 90), (x + 2, 90))
+            for x in range(530, 570, 11):
+                pygame.draw.line(screen, BLUE, (x, 90), (x + 6, 90))
             screen.blit(font.render('cos(x)', False, BLACK), (475, 75))
             i = 0
             for x, y in zip(pos['cos'], prevpos['cos']):
-                if i % 2 == 0:
-                    pygame.draw.aalines(screen, BLUE, False, [(x[0], x[1]), (y[0], y[1])])
+                if i % 3 != 0:
+                    pygame.draw.line(screen, BLUE, (x[0], x[1]), (y[0], y[1]))
                 i += 1
         for x, y in zip(pos['sin'], prevpos['sin']):
             pygame.draw.aalines(screen, RED, False, [(x[0], x[1]), (y[0], y[1])])
@@ -140,13 +140,13 @@ while True:
     else:
         DoneSin = False
     if showCosine:
-        for x in range(530, 570, 7):
-            pygame.draw.line(screen, BLUE, (x, 90), (x + 2, 90))
+        for x in range(530, 570, 11):
+            pygame.draw.line(screen, BLUE, (x, 90), (x + 6, 90))
         screen.blit(font.render('cos(x)', False, BLACK), (475, 75))
         i = 0
         for x, y in zip(pos['cos'], prevpos['cos']):
-            if i % 2 == 0:
-                pygame.draw.aalines(screen, BLUE, False, [(x[0], x[1]), (y[0], y[1])])
+            if i % 3 != 0:
+                pygame.draw.line(screen, BLUE, (x[0], x[1]), (y[0], y[1]))
             if not DoneCos:
                 pygame.display.update()
                 pygame.time.delay(10)
