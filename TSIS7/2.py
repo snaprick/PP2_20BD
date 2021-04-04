@@ -91,15 +91,15 @@ def draw_Nums():
 
 # precalc
 for x, x1 in zip(range(100, 700), range(101, 701)):
-    y1 = 240 * math.sin((x - 100) / 100 * PI) + 280
-    y2 = 240 * math.sin((x1 - 100) / 100 * PI) + 280
+    y1 = -240 * math.sin((x/100) * PI) + 280
+    y2 = -240 * math.sin((x1/100) * PI) + 280
     prevpos['sin'].append((x, y1))
     pos['sin'].append((x1, y2))
-for x, x1 in zip(range(100, 700), range(101, 701)):
-    y1 = 240 * math.cos((x - 100) / 100 * PI) + 280
-    y2 = 240 * math.cos((x1 - 100) / 100 * PI) + 280
+    y1 = -240 * math.cos(x / 100 * PI) + 280
+    y2 = -240 * math.cos(x1 / 100 * PI) + 280
     prevpos['cos'].append((x, y1))
     pos['cos'].append((x1, y2))
+
 while True:
     for event in pygame.event.get():
         if event.type == QUIT or (event.type == KEYUP and event.key == K_ESCAPE):
@@ -112,8 +112,6 @@ while True:
                 showCosine = not showCosine
     screen.fill(WHITE)
     screen.blit(drawWaves, drawnRect)
-    # screen.blit(drawSin, SinRect)
-    # screen.blit(drawCos, CosRect)
     draw_lines()
     draw_hatches()
     draw_Nums()
