@@ -7,6 +7,7 @@ size = width, height = (800, 650)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("TSIS-7")
 font = pygame.font.SysFont('comicsansms', 17)
+fontx = pygame.font.SysFont('verdana', 20)
 icon = pygame.image.load('server-icon.png')
 pygame.display.set_icon(icon)
 
@@ -116,7 +117,7 @@ while True:
     draw_lines()
     draw_hatches()
     draw_Nums()
-    screen.blit(font.render('X', False, BLACK), (393, 575))
+    screen.blit(fontx.render('X', False, BLACK), (395, 575))
 
     if showSine:
         pygame.draw.line(screen, RED, (530, 60), (569, 60))
