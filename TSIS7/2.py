@@ -64,35 +64,36 @@ def draw_hatches():
     for x in range(150, 651, 100):
         pygame.draw.line(screen, BLACK, (x, 15), (x, 35))
         pygame.draw.line(screen, BLACK, (x, 525), (x, 545))
-    for x in range(125, 701, 50):
+    for x in range(125, 676, 50):
         pygame.draw.line(screen, BLACK, (x, 15), (x, 25), 2)
         pygame.draw.line(screen, BLACK, (x, 535), (x, 545), 2)
-    for y in range(70, 521, 60):
+    for y in range(70, 491, 60):
         pygame.draw.line(screen, BLACK, (75, y), (90, y))
         pygame.draw.line(screen, BLACK, (710, y), (725, y))
-    for y in range(55, 521, 30):
+    for y in range(55, 506, 30):
         pygame.draw.line(screen, BLACK, (75, y), (85, y))
         pygame.draw.line(screen, BLACK, (715, y), (725, y))
-    for x in range(112, 701, 25):
+    for x in range(112, 688, 25):
         pygame.draw.line(screen, BLACK, (x, 15), (x, 20))
         pygame.draw.line(screen, BLACK, (x, 540), (x, 545))
+
 
 def draw_Nums():
     for x, i in zip(range(85, 686, 50), range(13)):
         screen.blit(font.render(rad[i], True, BLACK), (x, 545))
         if i % 2 == 1:
-            screen.blit(slash, (x+2, 545))
+            screen.blit(slash, (x + 2, 545))
             screen.blit(two, (x + 8, 564))
-    for y, y1 in zip(range(25, 509, 60), num):
+    for y, y1 in zip(range(25, 506, 60), num):
         screen.blit(font.render(y1, False, BLACK), (30, y))
-    for i, x in zip(nums, range(110, 710, 100)):
+    for i, x in zip(nums, range(110, 611, 100)):
         screen.blit(font.render(i, False, BLACK), (x, 280))
 
 
 # precalc
 for x, x1 in zip(range(100, 700), range(101, 701)):
-    y1 = -240 * math.sin((x/100) * PI) + 280
-    y2 = -240 * math.sin((x1/100) * PI) + 280
+    y1 = -240 * math.sin((x / 100) * PI) + 280
+    y2 = -240 * math.sin((x1 / 100) * PI) + 280
     prevpos['sin'].append((x, y1))
     pos['sin'].append((x1, y2))
     y1 = -240 * math.cos(x / 100 * PI) + 280
@@ -118,7 +119,7 @@ while True:
     screen.blit(font.render('X', False, BLACK), (393, 575))
 
     if showSine:
-        pygame.draw.line(screen, RED, (530, 60), (570, 60))
+        pygame.draw.line(screen, RED, (530, 60), (569, 60))
         screen.blit(font.render('sin(x)', False, BLACK), (475, 45))
         if showCosine and DoneCos:
             for x in range(530, 570, 11):
