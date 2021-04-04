@@ -149,7 +149,7 @@ while True:
                 pygame.draw.line(screen, BLUE, (x[0], x[1]), (y[0], y[1]))
             if not DoneCos:
                 pygame.display.update()
-                pygame.time.delay(10)
+                pygame.time.delay(3)
             i += 1
         DoneCos = True
     else:
