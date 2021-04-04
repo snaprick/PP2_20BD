@@ -6,7 +6,7 @@ pygame.init()
 size = width, height = (800, 650)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("TSIS-7")
-font = pygame.font.SysFont('times-new-roman', 20)
+font = pygame.font.SysFont('comicsansms', 17)
 icon = pygame.image.load('server-icon.png')
 pygame.display.set_icon(icon)
 
@@ -35,32 +35,31 @@ drawnRect.bottom = 630
 
 pos = {'sin': [], 'cos': []}
 prevpos = {'sin': [], 'cos': []}
-nums = ['- 3', '- 2', '- 1', ' 0 ', '1','2']
-dx1 = ['-3π', ' 5π', '-2π', ' 3π', '-π ', ' π ', ' 0 ', ' π ', ' π ', ' 3π', ' 2π', ' 5π', ' 3π']
-dx2 = ['', '_ __', '', '_ __', '', '_ _', '', '   _', '', '   __', '', '   __', '']
-dx3 = ['', '  2', '', '  2', '', ' 2', '', ' 2', '', '  2', '', '  2', '']
+rad = ["-3π", "5π", "-2π", "-3π", "-π", "-π", "0", " π", "π", "3π", "2π", "5π", "3π"]
+nums = ['- 3', '- 2', '- 1', ' 0 ', '1', '2']
 num = [' 1.00', ' 0.75', ' 0.50', ' 0.25', ' 0.00', '-0.25', '-0.50', '-0.75', '-1.00']
 
 
-def draw_lines(screen):
+def draw_lines():
     pygame.draw.rect(screen, BLACK, (70, 10, 660, 540), 2)
-    pygame.draw.line(screen, BLACK, (70, 280), (730, 280), 3)
-    pygame.draw.line(screen, BLACK, (400, 10), (400, 550), 3)
-    pygame.draw.line(screen, BLACK, (70, 40), (730, 40))
-    pygame.draw.line(screen, BLACK, (70, 520), (730, 520))
-    pygame.draw.line(screen, BLACK, (100, 10), (100, 550))
-    pygame.draw.line(screen, BLACK, (700, 10), (700, 550))
     for x in range(100, 701, 100):
+        if x == 400:
+            pygame.draw.line(screen, BLACK, (x, 10), (x, 550), 2)
+            continue
         if x != 500:
             pygame.draw.line(screen, BLACK, (x, 10), (x, 550))
         else:
             pygame.draw.line(screen, BLACK, (x, 10), (x, 40))
             pygame.draw.line(screen, BLACK, (x, 100), (x, 550))
+
     for y in range(40, 521, 60):
-        pygame.draw.line(screen, BLACK, (70, y), (730, y))
+        if y == 280:
+            pygame.draw.line(screen, BLACK, (70, 280), (730, 280), 2)
+        else:
+            pygame.draw.line(screen, BLACK, (70, y), (730, y))
 
 
-def hatches(screen):
+def draw_hatches():
     for x in range(100, 701, 50):
         pygame.draw.line(screen, BLACK, (x, 10), (x, 30))
         pygame.draw.line(screen, BLACK, (x, 530), (x, 550))
@@ -78,28 +77,29 @@ def hatches(screen):
         pygame.draw.line(screen, BLACK, (x, 545), (x, 550))
 
 
-def drawNums():
-    for x, x1, x2, x3 in zip(range(90, 691, 50), dx1, dx2, dx3):
-        screen.blit(font.render(x1, False, BLACK), (x, 550))
-        screen.blit(font.render(x2, False, BLACK), (x - 10, 550))
-        screen.blit(font.render(x3, False, BLACK), (x, 570))
-    for y, y1 in zip(range(28, 509, 60), num):
-        screen.blit(font.render(y1, False, BLACK), (25, y))
+def draw_Nums():
+    for x, i in zip(range(85, 686, 50), range(13)):
+        screen.blit(font.render(rad[i], True, BLACK), (x, 550))
+        if i % 2 == 1:
+            screen.blit(font.render("__", True, BLACK), (x, 550))
+            screen.blit(font.render("2", True, BLACK), (x + 7, 570))
+    for y, y1 in zip(range(25, 509, 60), num):
+        screen.blit(font.render(y1, False, BLACK), (17, y))
     for i, x in zip(nums, range(110, 710, 100)):
         screen.blit(font.render(i, False, BLACK), (x, 290))
 
 
 # precalc
-for x in range(100, 700):
-    y1 = 240 * math.sin((x - 100) / 100 * PI)
-    y2 = 240 * math.sin((x - 99) / 100 * PI)
-    prevpos['sin'].append((x, 280 + y1))
-    pos['sin'].append((x + 1, 280 + y2))
-for x in range(100, 700, 3):
-    y1 = 240 * math.cos((x - 100) / 100 * PI)
-    y2 = 240 * math.cos((x - 99) / 100 * PI)
-    prevpos['cos'].append((x, 280 + y1))
-    pos['cos'].append((x + 1, 280 + y2))
+for x, x1 in zip(range(100, 700), range(101, 701)):
+    y1 = 240 * math.sin((x - 100) / 100 * PI) + 280
+    y2 = 240 * math.sin((x1 - 100) / 100 * PI) + 280
+    prevpos['sin'].append((x, y1))
+    pos['sin'].append((x1, y2))
+for x, x1 in zip(range(100, 700), range(101, 701)):
+    y1 = 240 * math.cos((x - 100) / 100 * PI) + 280
+    y2 = 240 * math.cos((x1 - 100) / 100 * PI) + 280
+    prevpos['cos'].append((x, y1))
+    pos['cos'].append((x1, y2))
 while True:
     for event in pygame.event.get():
         if event.type == QUIT or (event.type == KEYUP and event.key == K_ESCAPE):
@@ -114,9 +114,9 @@ while True:
     screen.blit(drawWaves, drawnRect)
     # screen.blit(drawSin, SinRect)
     # screen.blit(drawCos, CosRect)
-    draw_lines(screen)
-    hatches(screen)
-    drawNums()
+    draw_lines()
+    draw_hatches()
+    draw_Nums()
     screen.blit(font.render('X', False, BLACK), (393, 575))
 
     if showSine:
@@ -124,10 +124,13 @@ while True:
         screen.blit(font.render('sin(x)', False, BLACK), (475, 45))
         if showCosine and DoneCos:
             for x in range(530, 570, 7):
-                pygame.draw.line(screen, BLUE, (x, 90), (x + 3, 90))
+                pygame.draw.line(screen, BLUE, (x, 90), (x + 2, 90))
             screen.blit(font.render('cos(x)', False, BLACK), (475, 75))
+            i = 0
             for x, y in zip(pos['cos'], prevpos['cos']):
-                pygame.draw.aalines(screen, BLUE, False, [(x[0], x[1]), (y[0], y[1])])
+                if i % 2 == 0:
+                    pygame.draw.aalines(screen, BLUE, False, [(x[0], x[1]), (y[0], y[1])])
+                i += 1
         for x, y in zip(pos['sin'], prevpos['sin']):
             pygame.draw.aalines(screen, RED, False, [(x[0], x[1]), (y[0], y[1])])
             if not DoneSin:
@@ -138,13 +141,16 @@ while True:
         DoneSin = False
     if showCosine:
         for x in range(530, 570, 7):
-            pygame.draw.line(screen, BLUE, (x, 90), (x + 3, 90))
+            pygame.draw.line(screen, BLUE, (x, 90), (x + 2, 90))
         screen.blit(font.render('cos(x)', False, BLACK), (475, 75))
+        i = 0
         for x, y in zip(pos['cos'], prevpos['cos']):
-            pygame.draw.aalines(screen, BLUE, False, [(x[0], x[1]), (y[0], y[1])])
+            if i % 2 == 0:
+                pygame.draw.aalines(screen, BLUE, False, [(x[0], x[1]), (y[0], y[1])])
             if not DoneCos:
                 pygame.display.update()
                 pygame.time.delay(10)
+            i += 1
         DoneCos = True
     else:
         DoneCos = False
