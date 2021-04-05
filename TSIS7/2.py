@@ -41,7 +41,7 @@ dy = 280
 pos = {'sin': [], 'cos': []}
 prevpos = {'sin': [], 'cos': []}
 rad = ["-3π", "-5π", "-2π", "-3π", "-π", "-π", "  0", " π", "  π", "3π", "2π", "5π", "3π"]
-nums = ['- 3', '- 2', '- 1', ' 0 ', '1', '2']
+nums = ['- 3', '- 2', '    - 1']
 num = [' 1.00', ' 0.75', ' 0.50', ' 0.25', ' 0.00', '-0.25', '-0.50', '-0.75', '-1.00']
 
 
@@ -90,8 +90,8 @@ def draw_Nums():
             screen.blit(two, (x + 8, 564))
     for y, y1 in zip(range(25, 506, 60), num):
         screen.blit(font.render(y1, False, BLACK), (30, y))
-    for i, x in zip(nums, range(110, 611, 100)):
-        screen.blit(font.render(i, False, BLACK), (x, 280))
+    for i, x in zip(nums, range(110, 241, 65)):
+        screen.blit(font.render(i, False, BLACK), (x, 320))
 
 
 # precalc
