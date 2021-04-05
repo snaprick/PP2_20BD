@@ -3,7 +3,7 @@ import math
 from pygame.locals import *
 
 pygame.init()
-size = width, height = (800, 650)
+size = width, height = (775, 650)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("TSIS-7")
 font = pygame.font.SysFont('comicsansms', 17)
