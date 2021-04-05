@@ -34,6 +34,9 @@ drawWaves = font.render('Toggle waves Q - sin, W - cos', True, BLACK, WHITE)
 drawnRect = drawWaves.get_rect()
 drawnRect.left = 10
 drawnRect.bottom = 630
+n = 100
+multiplier = -240
+dy = 280
 
 pos = {'sin': [], 'cos': []}
 prevpos = {'sin': [], 'cos': []}
@@ -93,12 +96,12 @@ def draw_Nums():
 
 # precalc
 for x, x1 in zip(range(100, 700), range(101, 701)):
-    y1 = -240 * math.sin((x / 100) * PI) + 280
-    y2 = -240 * math.sin((x1 / 100) * PI) + 280
+    y1 = multiplier * math.sin(x/n * PI ) + dy
+    y2 = multiplier * math.sin(x1/n * PI) + dy
     prevpos['sin'].append((x, y1))
     pos['sin'].append((x1, y2))
-    y1 = -240 * math.cos(x / 100 * PI) + 280
-    y2 = -240 * math.cos(x1 / 100 * PI) + 280
+    y1 = multiplier * math.cos(x/n * PI ) + dy
+    y2 = multiplier * math.cos(x1/n * PI) + dy
     prevpos['cos'].append((x, y1))
     pos['cos'].append((x1, y2))
 
