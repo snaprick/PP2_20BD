@@ -183,17 +183,15 @@ while True:
     for entity in all_sprites:
         DISPLAYSURF.blit(entity.image, entity.rect)
         entity.move()
-    # for entity in enemies:
-    #     print(entity.speed)
     for entity in enemies:
-        print(entity.rect.x, entity.rect.y)
         if isCollision(entity.rect.x, entity.rect.y, playerX, 480):
             health -= 1
             pygame.mixer.Sound('Music/crash.mp3').play()
             entity.rect = entity.surf.get_rect(center=(random.randint(40, 360), 0))
             entity.speed = entity.get_random_speed()
     if health == 0:
-        time.sleep(2)
+        bg_sound.stop()
+        time.sleep(1)
         pygame.mixer.Sound('Music/game_over.mp3').play()
         DISPLAYSURF.blit(gameover, (0, 0))
         pygame.display.update()
