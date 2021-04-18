@@ -1,4 +1,4 @@
-import pygame, random, math, pickle, sys
+import pygame, random, math, pickle, sys, time
 from pygame.locals import *
 
 pygame.init()
@@ -28,6 +28,9 @@ clock = pygame.time.Clock()
 background = pygame.image.load("Images/bg.png")
 font = pygame.font.Font('Pokemon GB.ttf', 15)
 wall_image = pygame.image.load("Images/block.png")
+game_over = pygame.image.load("Images/game_over.png")
+level_change = pygame.image.load("Images/level_change.png")
+
 color = WHITE
 x = 100
 y = 100
@@ -58,6 +61,7 @@ class Snake:
         self.score = 0
         self.is_add = False
         self.level = 1
+        self.maxspeed = 8
 
     def draw(self):
         for i in self.elements:
@@ -67,8 +71,8 @@ class Snake:
         self.size += 1
         self.elements.append([0, 0])
         self.is_add = False
-        if self.size >= 50:
-            self.level += 1
+        if self.score >= 10:
+            self.level = 2
 
     def move(self):
         if self.is_add:
@@ -108,7 +112,8 @@ def is_collision(snake):
         food.x = random.randrange(25, 750, 25)
         food.y = random.randrange(25, 550, 25)
         if level == 2:
-            while (food.x, food.y) in wall or (food.x, food.y) in wall_hard or (food.x + 12.5, food.y + 12.5) in snake.elements:
+            while (food.x, food.y) in wall or (food.x, food.y) in wall_hard or (
+            food.x + 12.5, food.y + 12.5) in snake.elements:
                 food.x = random.randrange(25, 740, 25)
                 food.y = random.randrange(25, 535, 25)
         else:
@@ -257,6 +262,9 @@ def load(cnt):
                 is_change = False
 
 
+tick = 10
+
+
 def game(cnt):
     global snakes, food, game_over, level, is_change
 
@@ -304,18 +312,23 @@ def game(cnt):
                         snake1.dx = -velocity
                         snake1.dy = 0
         walls(level)
-        score1 = font.render("FIRST SCORE:" + str(snakes[0].size - 1), True, WHITE)
+        score1 = font.render("FIRST SCORE:" + str(snakes[0].score), True, WHITE)
         screen.blit(score1, (0, 600))
         if cnt == 2:
-            score2 = font.render("SECOND SCORE:" + str(snakes[1].size - 1), True, WHITE)
+            score2 = font.render("SECOND SCORE:" + str(snakes[1].score), True, WHITE)
             screen.blit(score2, (570, 600))
         for snake in snakes:
+            tick = snake.maxspeed
             snake.move()
             snake.draw()
             level = max(snake.level, level)
             if level == 2 and is_change:
+                time.sleep(0.5)
                 snake.size = 1
                 snake.elements = [[412, 412]]
+                snake.maxspeed = 13
+                snake.dx = 0
+                snake.dy = 0
                 is_change = False
             is_collision(snake)
             if not ((25 <= snake.elements[0][0] <= 775) and (25 <= snake.elements[0][1] <= 575)):
@@ -325,7 +338,7 @@ def game(cnt):
                 wall_collision(snake.elements[0][0], snake.elements[0][1], wall_hard)
         food.draw()
         # pygame.display.flip()
-        clock.tick(10)
+        clock.tick(tick)
         pygame.display.update()
     dump(snakes, food, cnt)
     pygame.quit()
