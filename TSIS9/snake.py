@@ -1,4 +1,9 @@
-import pygame, random, math, pickle, sys, time
+import math
+import pickle
+import pygame
+import random
+import sys
+import time
 from pygame.locals import *
 
 pygame.init()
@@ -113,7 +118,7 @@ def is_collision(snake):
         food.y = random.randrange(25, 550, 25)
         if level == 2:
             while (food.x, food.y) in wall or (food.x, food.y) in wall_hard or (
-            food.x + 12.5, food.y + 12.5) in snake.elements:
+                    food.x + 12.5, food.y + 12.5) in snake.elements:
                 food.x = random.randrange(25, 740, 25)
                 food.y = random.randrange(25, 535, 25)
         else:
@@ -138,7 +143,6 @@ def render(surface, text, size, x, y, clr):
     text_rect = text_surface.get_rect()
     text_rect.midtop = (x, y)
     surface.blit(text_surface, text_rect)
-
 
 def start_menu():
     global choose
@@ -317,6 +321,7 @@ def game(cnt):
         if cnt == 2:
             score2 = font.render("SECOND SCORE:" + str(snakes[1].score), True, WHITE)
             screen.blit(score2, (570, 600))
+            collision(snakes[0].elements, snakes[1].elements)
         for snake in snakes:
             tick = snake.maxspeed
             snake.move()
